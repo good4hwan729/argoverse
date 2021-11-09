@@ -15,7 +15,8 @@ argoverse_loader = ArgoverseTrackingLoader(root_dir)
 argoverse_loader.print_all()
 
 log_id = 'c6911883-1843-3727-8eaa-41dc8cda8993'#argoverse_loader.log_list[55]
-idx = 150
+print("Enter idx that you want to visualize")
+idx = input()
 camera = argoverse_loader.CAMERA_LIST[0]
 argoverse_data = argoverse_loader.get(log_id)
 city_name = argoverse_data.city_name
