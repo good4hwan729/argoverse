@@ -1,5 +1,13 @@
 # argoverse
 
+## About this dataset
+
+### Argoverse 3d Tracking Dataset
+
+# of Logs | Scene Duration | # of Segments
+--- | --- | ---
+113 | 15-30 seconds | 113
+
 ## How to run the script
 
 1. Download the sample dataset at https://www.argoverse.org/data.html#download-link
