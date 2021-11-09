@@ -25,5 +25,5 @@ print(' ------------------------------------------------------------------------
 print(' ------------------------- Ring Cameras ---------------------------------')
 print(' ------------------------------------------------------------------------\n')
 
-f,ax = viz_util.make_grid_ring_camera(argoverse_data,idx)
+f,ax = viz_util.make_grid_ring_camera(argoverse_data,int(idx))
 plt.show()
