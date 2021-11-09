@@ -4,7 +4,7 @@
 
 ### Argoverse 3d Tracking Dataset
 
-# of Logs | Scene Duration | # of Segments
+Total Logs | Scene Duration | Total Segments
 --- | --- | ---
 113 | 15-30 seconds | 113
 
