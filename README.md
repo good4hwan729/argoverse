@@ -4,9 +4,9 @@
 
 ### Argoverse 3d Tracking Dataset
 
-Total Logs | Scene Duration | Total Segments
---- | --- | ---
-113 | 15-30 seconds | 113
+Recorded Area | Total Log Segments | Scene Duration | Total Tracked Objects
+--- | --- | --- | ---
+Pittsburgh and Miami | 113 | 15-30 seconds | 11,052
 
 ## How to run the script
 
