@@ -20,10 +20,32 @@ idx = input()
 camera = argoverse_loader.CAMERA_LIST[0]
 argoverse_data = argoverse_loader.get(log_id)
 city_name = argoverse_data.city_name
-
+print("1: Ca")
+idx = input()
 print(' ------------------------------------------------------------------------')
 print(' ------------------------- Ring Cameras ---------------------------------')
 print(' ------------------------------------------------------------------------\n')
 
 f,ax = viz_util.make_grid_ring_camera(argoverse_data,int(idx))
+plt.show()
+
+print(' ------------------------------------------------------------------------')
+print(' ------------------------- Point cloud ---------------------------------')
+print(' ------------------------------------------------------------------------\n')
+
+f2 = plt.figure(figsize=(15, 8))
+ax2 = f2.add_subplot(111, projection='3d')
+
+viz_util.draw_point_cloud(ax2, 'Lidar scan', argoverse_data, idx)
+ax2.axis('off')
+
+f3 = plt.figure(figsize=(15, 15))
+ax3 = f3.add_subplot(111, projection='3d')
+idx=30 # current time frame
+viz_util.draw_point_cloud_trajectory(
+        ax3,
+        'Trajectory',
+        argoverse_data,idx,axes=[0, 1],xlim3d=(-15,15),ylim3d=(-15,15) # X and Y axes
+    )
+plt.axis('off')
 plt.show()
