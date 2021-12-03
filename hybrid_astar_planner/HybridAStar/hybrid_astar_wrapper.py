@@ -68,16 +68,40 @@ def apply_hybrid_astar(initial_conditions, hyperparameters):
     _apply_hybrid_astar(hastar_ic, hastar_hp, hastar_rv)
 
     success = hastar_rv.success
-    x_path = np.array([hastar_rv.x_path[i] for i in range(MAX_PATH_LENGTH)])
-    y_path = np.array([hastar_rv.y_path[i] for i in range(MAX_PATH_LENGTH)])
-    yaw_path = np.array(
-        [hastar_rv.yaw_path[i] for i in range(MAX_PATH_LENGTH)])
+    x_path = np.empty(MAX_PATH_LENGTH)
+    y_path = np.empty(MAX_PATH_LENGTH)
+    yaw_path = np.empty(MAX_PATH_LENGTH)
+    obs_path = []
+    for i in range(MAX_PATH_LENGTH):
+    
+    	# convert initial conditions to hybrid a* format
+    	hastar_ic = to_hastar_initial_conditions(initial_conditions)
+    	hastar_hp = _parse_hyperparameters(hyperparameters)
+    	#hastar_rv = HybridAStarReturnValues(0)
+    	_apply_hybrid_astar(hastar_ic, hastar_hp, hastar_rv)
+    	success = hastar_rv.success
+    	
+    	x_path[i] = hastar_rv.x_path[i]
+    	y_path[i] = hastar_rv.y_path[i]
+    	yaw_path[i] = hastar_rv.yaw_path[i]
+    	initial_conditions['obs'][0,0] += 0.5
+    	initial_conditions['obs'][0,2] += 0.5
+    	initial_conditions['obs'][1,0] += 0.7
+    	initial_conditions['obs'][1,2] += 0.7
+    	obs_path.append(initial_conditions['obs'].copy())
+    	
+    	#print(obs_path)
+    	
+    #x_path = np.array([hastar_rv.x_path[i] for i in range(MAX_PATH_LENGTH)])
+    #y_path = np.array([hastar_rv.y_path[i] for i in range(MAX_PATH_LENGTH)])
+    #yaw_path = np.array(
+    #    [hastar_rv.yaw_path[i] for i in range(MAX_PATH_LENGTH)])
 
     ind = -1
     if success and np.any(np.isnan(x_path)):
         ind = np.where(np.isnan(x_path))[0][0]
 
-    return x_path[:ind], y_path[:ind], yaw_path[:ind], success
+    return x_path[:ind], y_path[:ind], yaw_path[:ind], obs_path[:ind], success
 
 
 def to_hastar_initial_conditions(initial_conditions):
