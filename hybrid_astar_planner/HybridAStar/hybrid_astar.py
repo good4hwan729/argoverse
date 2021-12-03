@@ -21,8 +21,8 @@ def main():
         'start': np.array([10, 15, 0]),
         'end': np.array([50, 15, 0]),
         'obs': np.array([
-            [26.0, 10.0, 34.0, 17.0],
-            [26.0, 21.0, 34.0, 28.0],
+            [26.0, 7.0, 32.0, 13.0],
+            [26.0, 24.0, 32.0, 30.0],
         ]),
     }  # paste output from debug log
 
@@ -35,16 +35,18 @@ def main():
         "rad_upper_range": 4.0,
         "rad_lower_range": 4.0,
         "obstacle_clearance": 0.5,
-        "lane_width": 6.0,
-        "radius": 6.0,
-        "car_length": 4.8,
-        "car_width": 1.8,
+        "lane_width": 8.0,
+        "radius": 3.0,
+        "car_length": 6.0,
+        "car_width": 6.0,
     }
     start_time = time.time()
-    result_x, result_y, result_yaw, success = \
+    result_x, result_y, result_yaw, result_obs, success = \
         hybrid_astar_wrapper.apply_hybrid_astar(initial_conditions,
                                                 hyperparameters)
     end_time = time.time() - start_time
+    print("x: ", result_x)
+    print("y: ", result_y)
     print("Time taken: {}s".format(end_time))
     print(success)
     if not success:
@@ -52,8 +54,11 @@ def main():
         return
     start = initial_conditions['start']
     end = initial_conditions['end']
-    obs = initial_conditions['obs']
+    #obs = initial_conditions['obs']
+
     for i in range(sim_loop):
+        obs = result_obs[i]
+        #print(obs)
         print("Iteration: {}".format(i))
         x = result_x[0]
         y = result_y[0]
@@ -80,6 +85,10 @@ def main():
             plt.plot(start[0], start[1], "og")
             plt.plot(end[0], end[1], "or")
             if success:
+                agent = patch.Rectangle((result_x[1] - 6, result_y[1]-3),
+                                       6,
+                                       6)
+                ax.add_patch(agent)
                 plt.plot(result_x[1:], result_y[1:], ".r")
                 plt.plot(result_x[1], result_y[1], "vc")
                 plt.xlim(result_x[1] - area, result_x[1] + area)
