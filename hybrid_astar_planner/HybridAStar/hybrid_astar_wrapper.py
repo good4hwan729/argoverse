@@ -84,10 +84,19 @@ def apply_hybrid_astar(initial_conditions, hyperparameters):
     	x_path[i] = hastar_rv.x_path[i]
     	y_path[i] = hastar_rv.y_path[i]
     	yaw_path[i] = hastar_rv.yaw_path[i]
-    	initial_conditions['obs'][0,0] += 0.5
-    	initial_conditions['obs'][0,2] += 0.5
-    	initial_conditions['obs'][1,0] += 0.7
-    	initial_conditions['obs'][1,2] += 0.7
+    	if i < 10:
+    	    initial_conditions['obs'][0,0] += 0.3
+    	    initial_conditions['obs'][0,2] += 0.3
+    	#if 10 <= i < 20:
+    	#    initial_conditions['obs'][0,0] += 0.3
+    	#    initial_conditions['obs'][0,2] += 0.3
+    	#    initial_conditions['obs'][0,1] += 0.3
+    	#    initial_conditions['obs'][0,3] += 0.3
+    	#else:
+    	 #   initial_conditions['obs'][0,0] += 1.0
+    	 #   initial_conditions['obs'][0,2] += 1.0
+    	    #initial_conditions['obs'][1,0] += 0.7
+    	    #initial_conditions['obs'][1,2] += 0.7
     	obs_path.append(initial_conditions['obs'].copy())
     	
     	#print(obs_path)
